@@ -157,16 +157,18 @@
                 <div class="border-t border-gray-200 px-6 py-4">
                     <!-- Formulario de entrada de texto (estilo Perplexity) -->
                     <form id="chat-form" class="relative">
-                        <textarea
-                            id="prompt-input"
-                            placeholder="Pregúntame cualquier cosa..."
-                            class="flex h-12 p-3 pr-16 resize-none rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800"
-                            rows="1"></textarea>
-                        <button type="submit" class="ml-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-800 rounded-md p-3 transition-colors duration-300 flex-shrink-0">
-                            <svg data-name="1-Arrow Up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                       <div class="flex items-center gap-3">
+                            <textarea
+                                id="prompt-input"
+                                placeholder="Pregúntame cualquier cosa..."
+                                class="flex-1 h-12 p-3 resize-none rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800"
+                                rows="1"></textarea>
+                            <button type="submit" class="ml-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-800 rounded-md p-3 transition-colors duration-300 flex-shrink-0">
+                                <svg data-name="1-Arrow Up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m26.71 10.29-10-10a1 1 0 0 0-1.41 0l-10 10 1.41 1.41L15 3.41V32h2V3.41l8.29 8.29z"/>
                                 </svg>
-                        </button>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -704,6 +706,7 @@
     
 </body>
 </html>
+
 
 
 
