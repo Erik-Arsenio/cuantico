@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba2 Produc Inmobiliaria Cuántico - Proyectos que transforman</title>
+    <title>Inmobiliaria Cuántico - Proyectos que transforman</title>
     <link rel="icon" href="logo.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,10 +85,31 @@
         .legal-content p {
             margin-bottom: 1rem; /* mb-4 */
         }
-         .legal-content ul {
+        .legal-content ul {
             list-style-type: disc;
             margin-left: 1.5rem; /* ml-6 */
             margin-bottom: 1rem; /* mb-4 */
+        }
+        /* Animación de puntos para el estado del micrófono */
+        .mic-dots { display: inline-block; margin-left: 6px; vertical-align: baseline; }
+        .mic-dots span { display: inline-block; font-size: 14px; line-height: 1; margin: 0 1px; color: #dc2626; opacity: .4; transform: translateY(0); animation: mic-bounce 1s infinite; }
+        .mic-dots span:nth-child(1) { animation-delay: 0s; }
+        .mic-dots span:nth-child(2) { animation-delay: 0.15s; }
+        .mic-dots span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes mic-bounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: .4; }
+            40% { transform: translateY(-6px); opacity: 1; }
+        }
+
+    </style>
+    <style>
+        /* Ocultar la barra de scroll del textarea dentro de #chat-form */
+        #chat-form textarea#prompt-input {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+        #chat-form textarea#prompt-input::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge (WebKit/Blink) */
         }
     </style>
 </head>
@@ -98,7 +119,7 @@
     <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="logo.png" alt="Logo Inmobiliaria Cuántico" class="h-12 mr-4">
+                <img src="logo.png" alt="Logo Inmobiliaria Cuántico" class="h-24 mr-4">
             </div>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#proyectos" class="text-gray-300 hover:gold-text transition-colors duration-300">Proyectos</a>
@@ -141,13 +162,13 @@
 
         <!-- SECCIÓN DEL CHAT INTELIGENTE - COPIAR DESDE AQUÍ -->
         <section id="ai-chat-section" class="w-full max-w-3xl mx-auto p-4 md:p-6">
-            <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+            <div class="bg-gray-00 rounded-xl shadow-lg border border-gray-200">
                 <!-- Contenedor para los mensajes del chat -->
                 <div id="chat-container" class="p-6 h-96 overflow-y-auto">
                     <!-- Mensaje de bienvenida inicial -->
                     <div class="flex items-start gap-4 mb-6">
-                        <div class="bg-gray-800 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm flex-shrink-0">IA</div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-gray-800 prose">
+                        <div class="gold-bg text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm flex-shrink-0">IA</div>
+                        <div class="bg-gray-700 p-4 rounded-lg text-white prose">
                         <p>¡Hola! Soy tu asistente de IA. ¿En qué puedo ayudarte hoy? Pregúntame sobre nuestros proyectos, tecnologías o cualquier otra cosa.</p>
                         </div>
                     </div>
@@ -155,16 +176,30 @@
 
                 <!-- Divisor visual -->
                 <div class="border-t border-gray-200 px-6 py-4">
+                    <!-- Estado del micrófono -->
+                    <span id="mic-status" class="ml-2 text-sm text-gray-500" aria-live="polite"></span>
                     <!-- Formulario de entrada de texto (estilo Perplexity) -->
                     <form id="chat-form" class="relative">
-                       <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3">
                             <textarea
-                                id="prompt-input"
-                                placeholder="Pregúntame cualquier cosa..."
-                                class="flex-1 h-12 p-3 resize-none rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800"
-                                rows="1"></textarea>
-                            <button type="submit" class="ml-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-800 rounded-md p-3 transition-colors duration-300 flex-shrink-0">
-                                <svg data-name="1-Arrow Up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            id="prompt-input"
+                            placeholder="Pregúntame cualquier cosa..."
+                            class="flex-1 h-12 p-3 resize-none rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-gray-700 text-white"
+                            rows="1"></textarea>
+                            
+                            <!-- Botón de micrófono -->
+                            <button id="mic-btn" type="button" class="ml-2 bg-green-500 hover:bg-green-800 text-white rounded-full p-3 transition-colors duration-300 flex-shrink-0" aria-pressed="false" title="Activar micrófono">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 1v11"/>
+                                    <path d="M19 11a7 7 0 0 1-14 0"/>
+                                    <path d="M5 11v2a7 7 0 0 0 14 0v-2"/>
+                                </svg>
+                            </button>
+
+
+                            <!-- Botón de enviar (flecha hacia arriba) -->
+                            <button type="submit" class="ml-2 bg-gray-800 hover:bg-gray-300 disabled:bg-gray-100 text-white rounded-md p-3 transition-colors duration-300 flex-shrink-0">
+                                <svg data-name="1-Arrow Up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m26.71 10.29-10-10a1 1 0 0 0-1.41 0l-10 10 1.41 1.41L15 3.41V32h2V3.41l8.29 8.29z"/>
                                 </svg>
                             </button>
@@ -228,7 +263,7 @@
                     ¿Interesado en alguno de nuestros proyectos o tienes alguna consulta? Nos encantaría saber de ti.
                 </p>
                 <div class="max-w-xl mx-auto">
-                     <form class="space-y-6">
+                    <form class="space-y-6">
                         <input type="text" placeholder="Tu Nombre" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
                         <input type="email" placeholder="Tu Correo Electrónico" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
                         <textarea placeholder="Tu Mensaje" rows="5" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"></textarea>
@@ -302,7 +337,7 @@
             let isAdmin = false;
             
             // --- DATOS LOCALES (SIMULACIÓN DE JSON) ---
-            let projects = [
+            const defaultProjects = [
                 {
                     id: 1,
                     name: 'Hacienda San Eduardo',
@@ -319,12 +354,34 @@
                 },
                 {
                     id: 3,
-                    name: 'Santa Clara',
-                    description: 'Santa Clara Ecovillage es una comunidad vacacional de la marca ALMAVIVA, de Grupo López Rosa. Se encuentra a escasos minutos de las hermosas playas y salineras de Santa Clara, hogar de flamencos. Cuenta con excelentes amenidades como.',
-                    imageUrl: 'https://inmobiliariacuantico.com/es/projects/santa-clara/images/04.jpg',
-                    location: 'Proyectos Almaviva'
+                    name: 'Lofts Urban Connect',
+                    description: 'Espacios diáfanos y vanguardistas, perfectos para profesionales y creativos que buscan vivir y trabajar en un entorno inspirador.',
+                    imageUrl: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2670&auto=format&fit=crop',
+                    location: 'Distrito Financiero'
                 }
             ];
+
+            // Array que usará la app — se carga desde projects.json cuando sea posible
+            let projects = [];
+
+            // Cargar proyectos desde projects.json (fetch). Si falla, usar defaultProjects.
+            const loadProjects = async () => {
+                try {
+                    const res = await fetch('projects.json', { cache: 'no-store' });
+                    if (!res.ok) throw new Error('projects.json no disponible');
+                    const data = await res.json();
+                    // Validación básica: asegurar que sea un array
+                    if (!Array.isArray(data)) throw new Error('Formato inválido de projects.json');
+                    projects = data;
+                } catch (err) {
+                    console.warn('No se pudo cargar projects.json — usando datos por defecto.', err);
+                    projects = defaultProjects;
+                }
+                renderProjects();
+            };
+
+            // Iniciar carga de proyectos
+            loadProjects();
 
             // --- RENDERIZADO Y GESTIÓN DE PROYECTOS ---
             const projectsGrid = document.getElementById('projects-grid');
@@ -551,9 +608,6 @@
                 toggleAdminPanel();
                 toggleMobileMenu();
             });
-
-            // Initial render of projects
-            renderProjects();
         });
     </script>
     <script>
@@ -563,8 +617,11 @@
         const submitButton = chatForm.querySelector('button');
 
         // --- IMPORTANTE: Reemplaza esta URL con tu Webhook de n8n ---
-        const n8nWebhookUrl = 'https://yenny1cuantico.app.n8n.cloud/webhook/1a063648-763f-4fcf-acbd-91e3a7df291d';
         // const n8nWebhookUrl = 'https://yenny1cuantico.app.n8n.cloud/webhook-test/1a063648-763f-4fcf-acbd-91e3a7df291d';
+        // const n8nWebhookUrl = 'https://yenny1cuantico.app.n8n.cloud/webhook/1a063648-763f-4fcf-acbd-91e3a7df291d';
+        // const n8nWebhookUrl = 'http://localhost:5678/webhook-test/106d2f5f-6a44-4a07-8ed2-0980160e0285';
+        const n8nWebhookUrl = 'http://localhost:5678/webhook/106d2f5f-6a44-4a07-8ed2-0980160e0285';
+        // const n8nWebhookUrl = 'http://localhost:5678/webhook/759d1d0f-7401-43ea-8b5d-6c8b78bd311e/chat';
 
         // Ajustar la altura del textarea dinámicamente
         promptInput.addEventListener('input', () => {
@@ -646,7 +703,7 @@
             messageWrapper.className = `flex items-start gap-4 mb-6 ${sender === 'user' ? 'justify-end' : ''}`;
             
             const userIconClass = "bg-blue-500 text-white";
-            const aiIconClass = "bg-gray-800 text-white";
+            const aiIconClass = "gold-bg text-white";
             const userMessageClass = "bg-blue-500 text-white";
             const aiMessageClass = "bg-gray-100 text-gray-800";
 
@@ -655,7 +712,7 @@
             if (isLoading) {
                 contentHTML = `
                     <div class="${aiIconClass} rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm flex-shrink-0">IA</div>
-                    <div class="ai-message-content bg-gray-100 p-4 rounded-lg text-gray-800">
+                    <div class="ai-message-content bg-gray-800 p-4 rounded-lg text-white">
                         <div class="flex items-center space-x-1">
                             <span class="h-2 w-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
                             <span class="h-2 w-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
@@ -703,17 +760,128 @@
         }
 
     </script>
+    <script>
+        // RECONOCIMIENTO DE VOZ Y ENVÍO AL WEBHOOK (sin envío automático)
+        (function() {
+            const micBtn = document.getElementById('mic-btn');
+            const promptInput = document.getElementById('prompt-input');
+            const chatForm = document.getElementById('chat-form');
+            const submitButton = chatForm.querySelector('button[type="submit"]');
+            const micStatus = document.getElementById('mic-status');
+
+            // Compatibilidad Web Speech API
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                micBtn.disabled = true;
+                micBtn.title = 'Reconocimiento de voz no soportado en este navegador';
+                micBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                micStatus.textContent = 'Reconocimiento no soportado';
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'es-ES';
+            recognition.interimResults = true; // obtenemos resultados intermedios
+            recognition.maxAlternatives = 1;
+
+            let isRecording = false;
+            let finalTranscript = '';
+
+            const startRecording = () => {
+                // Si ya hay texto en el textarea, lo preservamos y añadiremos la nueva transcripción al final
+                const existing = promptInput.value ? promptInput.value.trim() + ' ' : '';
+                finalTranscript = existing; // inicializamos finalTranscript con el texto existente
+                try {
+                    recognition.start();
+                } catch (err) {
+                    // En algunos navegadores puede lanzar si ya está started
+                    console.warn('recognition.start() error', err);
+                }
+                micBtn.setAttribute('aria-pressed', 'true');
+                micBtn.classList.remove('bg-green-500');
+                micBtn.classList.add('bg-red-700');
+                micBtn.title = 'Grabando... pulsa para detener';
+                micStatus.textContent = 'Grabando...';
+                micStatus.classList.remove('text-gray-500');
+                micStatus.classList.add('text-red-600');
+                micStatus.innerHTML = 'Grabando... <span class="mic-dots"><span>•</span><span>•</span><span>•</span></span>';
+                isRecording = true;
+            };
+
+            const stopRecording = () => {
+                try {
+                    recognition.stop();
+                } catch (err) {
+                    console.warn('recognition.stop() error', err);
+                }
+                micBtn.setAttribute('aria-pressed', 'false');
+                micBtn.classList.remove('bg-red-700');
+                micBtn.classList.add('bg-green-500');
+                micBtn.title = 'Activar micrófono';
+                micStatus.textContent = 'Grabación detenida. Revisa o edita el texto antes de enviar.';
+                micStatus.classList.remove('text-red-600');
+                micStatus.classList.add('text-gray-500');
+                // Mantener el mensaje unos segundos y luego limpiar (opcional)
+                setTimeout(() => {
+                    if (!isRecording) micStatus.textContent = '';
+                }, 10000);
+                isRecording = false;
+            };
+
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        // Añadimos el fragmento final al finalTranscript (con espacio para separar)
+                        finalTranscript += event.results[i][0].transcript + ' ';
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                // Mostrar transcript en el textarea (con el texto final acumulado + intermedio)
+                promptInput.value = (finalTranscript + interimTranscript).trim();
+                promptInput.style.height = 'auto';
+                promptInput.style.height = `${promptInput.scrollHeight}px`;
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error', event.error);
+                micStatus.textContent = 'Error en reconocimiento: ' + (event.error || 'desconocido');
+                micStatus.classList.remove('text-red-600');
+                micStatus.classList.add('text-gray-500');
+                stopRecording();
+            };
+
+            recognition.onend = () => {
+                // No enviar automáticamente. Dejar el texto en textarea para que el usuario lo revise/edite.
+                if (finalTranscript.trim()) {
+                    // finalTranscript ya contiene el texto original (si había) + la nueva transcripción
+                    promptInput.value = finalTranscript.trim();
+                    promptInput.style.height = 'auto';
+                    promptInput.style.height = `${promptInput.scrollHeight}px`;
+                    micStatus.textContent = 'Grabación finalizada. Revisa el texto antes de enviar.';
+                } else {
+                    micStatus.textContent = 'No se detectó voz.';
+                }
+                // limpiar estado de grabación
+                micBtn.setAttribute('aria-pressed', 'false');
+                micBtn.classList.remove('bg-red-700');
+                micBtn.classList.add('bg-green-500');
+                isRecording = false;
+                // limpiar mensaje después de 3.5s
+                setTimeout(() => { micStatus.textContent = ''; }, 3500);
+            };
+
+            micBtn.addEventListener('click', () => {
+                if (isRecording) {
+                    stopRecording();
+                } else {
+                    startRecording();
+                }
+            });
+
+        })();
+    </script>
     
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
