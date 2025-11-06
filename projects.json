@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Hacienda San Eduardo",
+    "description": "Descubre el lujo y la tranquilidad en Hacienda San Eduardo. Un desarrollo residencial único, rodeado de historia y naturaleza dentro de la reconversión de una auténtica hacienda henequera. Invierte en un patrimonio que crece contigo. Disfruta de amenidades de primera calidad.",
+    "imageUrl": "https://inmobiliariacuantico.com/es/projects/hacienda-san-eduardo/images/05.jpg",
+    "location": "Proyectos Almaviva"
+  },
+  {
+    "id": 2,
+    "name": "San Roque",
+    "description": "Vive la tranquilidad y el prestigio de San Roque. Terrenos residenciales diseñados para disfrutar un estilo de vida único en un entorno exclusivo con servicios de primera calidad.",
+    "imageUrl": "https://inmobiliariacuantico.com/es/projects/san-roque/thumbs/01.jpg",
+    "location": "Proyectos Almaviva"
+  },
+  {
+    "id": 3,
+    "name": "Santa Clara",
+    "description": "Santa Clara Ecovillage es una comunidad vacacional de la marca ALMAVIVA, de Grupo López Rosa. Se encuentra a escasos minutos de las hermosas playas y salineras de Santa Clara, hogar de flamencos. Cuenta con excelentes amenidades como.",
+    "imageUrl": "https://inmobiliariacuantico.com/es/projects/santa-clara/images/04.jpg",
+    "location": "Proyectos Almaviva"
+  }
+]
